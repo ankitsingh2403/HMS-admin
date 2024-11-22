@@ -24,7 +24,7 @@ const AddNewAdmin = () => {
     try {
       await axios
         .post(
-          "http://localhost:4000/api/v1/user/admin/addnew",
+          "/api/v1/user/admin/addnew",
           { firstName, lastName, email, phone, aadhar, dob, gender, password },
           {
             withCredentials: true,

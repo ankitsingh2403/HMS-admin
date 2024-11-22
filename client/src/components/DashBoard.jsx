@@ -14,7 +14,7 @@ const Dashboard = () => {
     const fetchAppointments = async () => {
       try {
         const { data } = await axios.get(
-          "http://localhost:4000/api/v1/appointment/getall",
+          "/api/v1/appointment/getall",
           { withCredentials: true }
         );
         setAppointments(data.appointment);
@@ -29,7 +29,7 @@ const Dashboard = () => {
   const handleUpdateStatus = async (appointmentId, status) => {
     try {
       const { data } = await axios.put(
-        `http://localhost:4000/api/v1/appointment/update/${appointmentId}`,
+        `/api/v1/appointment/update/${appointmentId}`,
         { status },
         { withCredentials: true }
       );
