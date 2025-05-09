@@ -30,9 +30,10 @@ app.use(express.urlencoded({ extended: true, limit: '5mb' }));
 
 
 app.use(fileUpload({
-    useTempFiles:true,
-    tempFileDir:"/temp/"
+  useTempFiles: true,
+  tempFileDir: '/tmp', // ✅ MUST be /tmp on Render
 }));
+
 dbConnection();
 
 app.use("/api/v1/message",messageRouter);
