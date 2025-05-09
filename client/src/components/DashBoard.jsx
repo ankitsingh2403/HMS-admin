@@ -30,18 +30,21 @@ const Dashboard = () => {
   useEffect(() => {
   const fetchDoctors = async () => {
     try {
-      const { data } = await axios.get(
-        "/api/v1/user/doctors",
-        { withCredentials: true }
-      );
+      const { data } = await axios.get("/api/v1/user/doctors", {
+        withCredentials: true,
+      });
+
+      console.log("Fetched Doctors Data:", data); // Log the data being fetched
       setDoctors(data.doctors);
     } catch (error) {
-      console.log(error);
-      setDoctors([]);
+      console.error("Error fetching doctors:", error);
+      setDoctors([]); // In case of error, make sure it's an empty array
     }
   };
+
   fetchDoctors();
 }, []);
+
 
   const handleUpdateStatus = async (appointmentId, status) => {
     try {
