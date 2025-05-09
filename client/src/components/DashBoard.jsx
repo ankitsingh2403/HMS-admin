@@ -9,26 +9,38 @@ import { AiFillCloseCircle } from "react-icons/ai";
 const Dashboard = () => {
   
   const [appointments, setAppointments] = useState([]);
-const [doctors, setDoctors] = useState([]);
+  const [doctors, setDoctors] = useState([]);
 
-useEffect(() => {
-  const fetchData = async () => {
+  useEffect(() => {
+    const fetchAppointments = async () => {
+      try {
+        const { data } = await axios.get(
+          "/api/v1/appointment/getall",
+          { withCredentials: true }
+        );
+        setAppointments(data.appointment);
+      } catch (error) {
+        console.log(error)
+        setAppointments([]);
+      }
+    };
+    fetchAppointments();
+  }, []);
+
+  useEffect(() => {
+  const fetchDoctors = async () => {
     try {
-      const [appointmentsRes, doctorsRes] = await Promise.all([
-        axios.get("/api/v1/appointment/getall", { withCredentials: true }),
-        axios.get("/api/v1/user/doctors", { withCredentials: true }),
-      ]);
-
-      setAppointments(appointmentsRes.data.appointment);
-      setDoctors(doctorsRes.data.doctors);
+      const { data } = await axios.get(
+        "/api/v1/user/doctors",
+        { withCredentials: true }
+      );
+      setDoctors(data.doctors);
     } catch (error) {
-      console.error(error);
-      setAppointments([]);
+      console.log(error);
       setDoctors([]);
     }
   };
-
-  fetchData();
+  fetchDoctors();
 }, []);
 
   const handleUpdateStatus = async (appointmentId, status) => {
